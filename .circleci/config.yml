@@ -1,32 +1,26 @@
-# version: 2
-# jobs:
-#   build:
-#     working_directory: /go/src/github.com/johnliu8365/GetJsonAPI
-#     docker:
-#       - image: docker:17.05.0-ce-git
-#     steps:
-#       - checkout
-#       - setup_remote_docker
-#       - run:
-#           name: Install dependencies
-#           command: |
-#             apk add --no-cache py-pip=9.0.0-r1
-#             pip install docker-compose==1.15.0
-#       - run:
-#           name: Run tests
-#           command: |
-#             docker-compose up -d
-#       - deploy:
-#           name: Push application Docker image
-#           command: |
-#             docker login -e $DOCKER_HUB_EMAIL -u $DOCKER_HUB_USER_ID -p $DOCKER_HUB_PWD
-#             docker tag getjsonapi_getjsonapi $DOCKER_HUB_USER_ID/getjsonapi:$CIRCLE_SHA1
-#             docker tag getjsonapi_getjsonapi $DOCKER_HUB_USER_ID/getjsonapi:latest
-#             docker push $DOCKER_HUB_USER_ID/getjsonapi:$CIRCLE_SHA1
-#             docker push $DOCKER_HUB_USER_ID/getjsonapi:latest
-
-deployment:
-  dockerhub:
-    branch: master
-    commands:
-      - $DOCKER_HUB_TRIGGER
+version: 2
+jobs:
+  build:
+    working_directory: /go/src/github.com/johnliu8365/GetJsonAPI
+    docker:
+      - image: docker:17.05.0-ce-git
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: Install dependencies
+          command: |
+            apk add --no-cache py-pip=9.0.0-r1
+            pip install docker-compose==1.15.0
+      - run:
+          name: Run tests
+          command: |
+            docker-compose up -d
+      - deploy:
+          name: Push application Docker image
+          command: |
+            docker login -e $DOCKER_HUB_EMAIL -u $DOCKER_HUB_USER_ID -p $DOCKER_HUB_PWD
+            docker tag getjsonapi_getjsonapi $DOCKER_HUB_USER_ID/getjsonapi:$CIRCLE_SHA1
+            docker tag getjsonapi_getjsonapi $DOCKER_HUB_USER_ID/getjsonapi:latest
+            docker push $DOCKER_HUB_USER_ID/getjsonapi:$CIRCLE_SHA1
+            docker push $DOCKER_HUB_USER_ID/getjsonapi:latest
