@@ -16,7 +16,9 @@ jobs:
           name: Run tests
           command: |
             docker-compose up -d
-            docker-compose run getjsonapi go run main.go
+            - docker-compose run getjsonapi go run main.go:
+              timeout: 600
+
       - deploy:
           name: Push application Docker image
           command: |
