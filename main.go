@@ -6,17 +6,18 @@ import (
 	"net/http"
 )
 
-func handler(w http.ResponseWriter, r *http.Request) {
+type Serve int
+
+func (m Serve) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	res, err := ioutil.ReadFile("data.json")
 	if err != nil {
-		fmt.Println(err)
+
 	}
-	fmt.Fprintln(w, string("welcome"))
+	fmt.Fprintln(w, string("Welcome"))
 	fmt.Fprintln(w, string(res))
 }
 
 func main() {
-	fmt.Println("HI")
-	http.HandleFunc("/", handler)
-	http.ListenAndServe(":3000", nil)
+	var s Serve
+	http.ListenAndServe(":3000", s)
 }
