@@ -16,4 +16,4 @@ jobs:
           name: Run tests
           command: |
             docker-compose up -d
-            docker-compose run ballparkscraping go run main.go
+            docker-compose run getjsonapi go run main.go
