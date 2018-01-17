@@ -19,5 +19,6 @@ func (m Serve) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	var s Serve
+	fmt.Println("Running.......")
 	http.ListenAndServe(":3000", s)
 }
